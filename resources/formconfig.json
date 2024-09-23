@@ -1,0 +1,3 @@
+{
+    "FormGroup" : "<div class=\"form-group\">\n\t\t\t\t\t<label asp-for=\"#property#\" class=\"control-label\"></label>\n\t\t\t\t\t<input class=\"form-control\" asp-for=\"#property#\" >\n\t\t\t\t\t#input#\n</div>"
+}

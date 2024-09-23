@@ -1,0 +1,101 @@
+using System.Linq;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using #modelNamespace#;
+using #contextNamespace#;
+
+namespace #project#.Controllers;
+
+public class #model#Controller : Controller
+{
+    private readonly #context# _context;
+
+    public AddressController(#context# context)
+    {
+      _context = context;
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Create(#bind# #model# #modelfirstlower#)
+    {
+        _context.#dbSet#.Add(#modelfirstlower#);
+        await _context.SaveChangesAsync();
+        return RedirectToAction(nameof(Index));
+    }
+
+    public async Task<IActionResult> Create()
+    {
+        // #manytoone#;
+
+        return View();
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Edit(int id, #bindPost# #model# #modelfirstlower#)
+    {
+        if(id == null)
+        {
+            return NotFound();
+        }
+        _context.#dbSet#.Update(#modelfirstlower#);
+        await _context.SaveChangesAsync();
+        return RedirectToAction(nameof(Index));
+    }
+
+    public async Task<IActionResult> Edit(int? id)
+    {
+        if(id == null)
+        {
+            return NotFound();
+        }
+        var #modelfirstlower# = await _context.#dbSet#.FirstOrDefaultAsync(m => m.#pk# == id);
+        if(#modelfirstlower# == null)
+        {
+            return NotFound();
+        }
+        // #manytoone#;
+
+        return View(#modelfirstlower#);
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> Delete(int? id)
+    {
+        if(id == null)
+        {
+            return NotFound();
+        }
+        var #modelfirstlower# = await _context.#dbSet#.FirstOrDefaultAsync(m => m.#pk# == id);
+        if(#modelfirstlower# == null)
+        {
+            return NotFound();
+        }
+        _context.#dbSet#.Remove(#modelfirstlower#);
+        await _context.SaveChangesAsync();
+        return RedirectToAction(nameof(Index));
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> Index(int? position)
+    {
+        int nbrPerPage = 2;
+        var nombre = await _context.#dbSet#.CountAsync();
+        ViewBag.nbrPerPage = nbrPerPage;
+        ViewBag.nbrLinks = (int)(nombre/nbrPerPage)+1;
+        int val;
+        if(position.HasValue)
+        {
+            val = position.Value;
+            var datas = await _context.#dbSet#.Skip(val * nbrPerPage).Take(nbrPerPage).ToListAsync();
+            return View(datas);
+        }
+        else
+        {
+            val = 0;
+            var datas = await _context.#dbSet#.Take(nbrPerPage).ToListAsync();
+            return View(datas);
+        }
+    }
+}

@@ -1,0 +1,13 @@
+{
+    "ContextName" : "MarketDbContext",
+    "ControllerSubFolder" : "Controllers/",
+    "ViewSubFolder" : "Views/",
+    "ModelSubFolder" : "Models/",
+    "ModelName" : "Address",
+    "DbSet" : "Addresses",
+    "ProjectPath" : "/home/miaro/Fianarana/Dotnet/Mysqlcrud/",
+    "ViewType" : "Razor",
+    "ProjectName" : "Mysqlcrud",
+    "ContextNamespace" : "Context",
+    "ModelNamespace" : "Models"
+}

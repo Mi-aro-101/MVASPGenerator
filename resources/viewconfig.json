@@ -1,0 +1,4 @@
+{
+    "Singular" : "<span asp-validation-for=\"#property#\" class=\"text-danger\"></span>",
+    "Select" : "<select asp-for=\"#property#\" class =\"form-control\" asp-items=\"ViewBag.#property#\"></select>"
+}
